@@ -1,17 +1,19 @@
 #!/bin/bash
 
-# Server Password Generation Script
+# Server Pseudo-random Password Generation Script
 # Author: V. Alex Brennen <vab@mit.edu>
 # License: This script is public domain
-# Date: 2008-02-26
+# Date: 2012-02-26
 
 # Description: This script will use the passgen password candidate generator
-#              to generate a text file containing password candidates for 
-#              a list of servers passed to it. The servers should be in a 
-#              new line seperated text file.
+#	       to generate password candidates for a list of servers passed
+#	       to it. The list server should be in a new line separated text
+#	       file.
+# Dependency:  http://cryptnet.net/fsp/passgen/
+
 
 PASSGEN=/usr/bin/passgen
-PASSGEN_ARG="-C -n 1 -u"
+PASSGEN_ARGS="-C -n 1 -u"
 # Passgen program arguments (See passgen man page for more information)
 #	-a		Alpha numeric characters only.
 #	-A		Alphabetic characters only.
@@ -31,20 +33,23 @@ PASSGEN_ARG="-C -n 1 -u"
 # Function to generate and print a password candidate
 function genpass
 {
-	CANDIDATE=`$PASSGEN $PASSGEN_ARG`
+	CANDIDATE=`$PASSGEN $PASSGEN_ARGS`
 	echo "	root:	$CANDIDATE"
 }
 
+# Test for a server list file argument
 if [ -z "$1" ]; then
 	echo "Usage: $0 <server_list.txt>"
 	exit
 fi
 
+# Make sure the server list file is valid and readable
 if [ ! -r "$1" ]; then
 	echo "Error: Could not open and read server list file: $1."
 	exit
 fi
 
+# Step through the list of servers, generating a new password for each one
 for SERVER in $(cat $1);
 do
 	echo $SERVER
