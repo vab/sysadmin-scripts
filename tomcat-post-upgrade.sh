@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 # Tomcat Post Upgrade File Permission Adjustment Script
 # Author: V. Alex Brennen <vab@mit.edu>
