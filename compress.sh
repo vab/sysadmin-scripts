@@ -26,7 +26,7 @@ echo "Error: Argument does not appear to be a directory: $1."
 exit
 fi
 
-# This is the fuction that does the actual compression and 
+# This is the function that does the actual compression and 
 # directory transversal.
 function compress_files
 {
