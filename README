@@ -2,6 +2,8 @@ This is just a collection of miscellaneous sysadmin scripts that I use on
 my systems. They are public domain.
 
 analog_monthly 	        Script to update analog.cfg file for monthly logs.
+backup_postgres.sh      Backup postgres database server. Export each db to
+                        SQL and compress it.
 compress.sh 	        Recursive file compression script.
 genpasswds.sh 	        Script to generate passwords for a list of systems.
                         This script is meant to be used with my passgen
@@ -12,3 +14,4 @@ log_compress.sh         Monthly log compression script.
 sshcachetunnel.sh       Script to set up an SSH tunnel to a squid proxy.
 tomcat-post-upgrade.sh 	Script to handle permission changes if you run 
                         tomcat as a role account other than tomcat.
+
