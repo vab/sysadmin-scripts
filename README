@@ -10,7 +10,9 @@ compress.sh 	        Recursive file compression script.
 genpasswds.sh 	        Script to generate passwords for a list of systems.
                         This script is meant to be used with my passgen
                         program.
-hesadd.pl               Script to add Linux users with modified hesiod data.
+hesadd.pl               Perl script to add Linux users with modified hesiod
+                        data.
+hesadd.sh		Script to add Linux users with modified hesiod data.
 log_clean.sh 	        Script to remove old logs.
 log_compress.sh         Monthly log compression script.
 sshcachetunnel.sh       Script to set up an SSH tunnel to a squid proxy.
