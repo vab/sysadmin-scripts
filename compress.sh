@@ -12,7 +12,16 @@
 # file or a directory (symbolic links, devices, etc).
 
 BZIP2=/bin/bzip2
+NICE=/bin/nice
+
+# Compression level
 CLVL="-9"
+
+# Use nice
+BE_NICE=1
+
+# Nice level
+NLVL=19
 
 # Test for a server list file argument
 if [ -z "$1" ]; then
@@ -33,7 +42,11 @@ function compress_files
 	for i in $( ls );
 	do
 		if [ -f $i ]; then
-			$BZIP2 $CLVL $i
+		    if [ $BE_NICE -eq 1 ]; then
+		    	$NICE -$NLVL $BZIP2 $CLVL $i
+		    else
+			    $BZIP2 $CLVL $i
+			fi
 		elif [ -d $i ]; then
 			cd $i
 			compress_files
@@ -47,3 +60,4 @@ function compress_files
 # to the recursive compress_files function.
 cd $1
 compress_files
+

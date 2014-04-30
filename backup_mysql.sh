@@ -1,25 +1,31 @@
 #!/bin/bash
 
-# Shell script to backup MySQL Databases
+# Shell script to backup MySQL databases
 # 
 # This script will create a list of all databases that exist on a 
 # MySQL database server and dump the databases one by one each to 
-# its own SQL file.
+# its own compressed, named, and dated, SQL file.
 
-# Author:	V. Alex Brennen <vab@MIT.EDU>
-# Copyright:	None
-# License:	Public Domain
-# Created:	2006.10.20
-# Last Updated:	2011.03.31
+# Author:        V. Alex Brennen <vab@MIT.EDU>
+# Copyright:	 None
+# License:       Public Domain
+# Date:          2006.10.20
 
 
 # Locations of Programs we'll be using
 MYSQL="/usr/bin/mysql"
 MYSQLDUMP="/usr/bin/mysqldump"
 BZIP2="/usr/bin/bzip2"
+NICE="/bin/nice"
 
 # The argument to specify a compression level if required
 CLVL="-9"
+
+# Use nice
+BE_NICE=1
+
+# Nice level
+NLVL=19
 
 # Directory to store the backups in
 BACKDIR="/home/backup/mysql"
@@ -76,14 +82,20 @@ DATE="$YEAR$MONTH$DAY"
 # Get a list of all the dbs
 DBS="$($MYSQL -h $DB_SRVR --user=$USER  --password=$PASS --silent --batch --execute='show databases')"
 
-# Itenerate through the database list
+# Iterate through the database list
 for db in $DBS
 do
-	# set the filename
+	# Set the filename
 	FILE="$db.$DB_SRVR_NAME.$DATE.sql"
 
-	# dump the data
+	# Dump the data
 	$MYSQLDUMP --opt -h $DB_SRVR --user=$USER --password=$PASS $db > $FILE
-	$BZIP2 $CLVL $FILE
+	
+	# Compress the dump file
+	if [ $BE_NICE -eq 1 ]; then
+		$NICE -$NLVL $BZIP2 $CLVL $FILE
+	else
+		$BZIP2 $CLVL $FILE
+	fi
 done
 
