@@ -15,8 +15,18 @@
 
 # The location of bzip2 (or other compression program)
 BZIP2=/usr/bin/bzip2
+
+# The location of nice
+NICE=/bin/nice
+
 # The argument to specify a compression level if required
 CLVL="-9"
+
+# Use nice
+BE_NICE=1
+
+# Nice level
+NLVL=19
 
 # Test for a server list file argument
 if [ -z "$1" ]; then
@@ -52,5 +62,9 @@ if [ $MONTH -lt 10 ]; then
 fi
 
 # Compress the old log files
-$BZIP2 $CLVL $1/*$YEAR-$MONTH*
+if [ $BE_NICE -eq 1 ]; then
+	$NICE -$NLVL $BZIP2 $CLVL $1/*$YEAR-$MONTH*
+else
+	$BZIP2 $CLVL $1/*$YEAR-$MONTH*
+fi
 
