@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Shell script to backup Postges Databases
+# Shell script to backup Postges databases
 # 
 # This script will create a list of all databases that exist on a 
 # Postgres database server and dump the databases one by one each
@@ -10,16 +10,22 @@
 # Copyright:    None
 # License:      Public Domain
 # Created:      2006.10.20
-# Last Updated:	2011.03.31
 
 
 # Locations of Programs we'll be using
 PSQL="/usr/bin/psql"
 PG_DUMP="/usr/bin/pg_dump"
 BZIP2="/usr/bin/bzip2"
+NICE=/bin/nice
 
 # The argument to specify a compression level if required
 CLVL="-9"
+
+# Use nice
+BE_NICE=1
+
+# Nice level
+NLVL=19
 
 # Set Database Sever Address
 ADDR="127.0.0.1"
@@ -86,7 +92,11 @@ do
 
 		# dump the data
 		$PG_DUMP --create --oids -U $USER -f $FILE $db
-		$BZIP2 $CLVL $FILE
+		if [ $BE_NICE -eq 1 ]; then
+			$NICE -$NLVL $BZIP2 $CLVL $FILE
+		else
+			$BZIP2 $CLVL $FILE
+		fi
 	fi
 done
 
