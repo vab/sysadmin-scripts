@@ -13,6 +13,7 @@ genpasswds.sh 	        Script to generate passwords for a list of systems.
 hesadd.sh		Script to add Linux users with modified hesiod data.
 log_clean.sh 	        Script to remove old logs.
 log_compress.sh         Monthly log compression script.
+mongo_backup.sh		Script to export all mongodbs to bson for backup
 sftp-download.sh	Script to download db export from remote machine with 
                         sftp using ssh keypair authentication.
 sshcachetunnel.sh       Script to set up an SSH tunnel to a squid proxy.
