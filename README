@@ -7,6 +7,7 @@ backup_mysql.sh         Backup mysql database server. Export each db to SQL
                         and compress it.
 backup_postgres.sh      Backup postgres database server. Export each db to
                         SQL and compress it.
+cert_gen.sh		x509 (https) Certificate Creation w/ OpenSSL
 compress.sh 	        Recursive file compression script.
 genpasswds.sh 	        Script to generate passwords for a list of systems.
                         This script is meant to be used with my passgen
