@@ -1,7 +1,6 @@
 This is a collection of miscellaneous sysadmin scripts that I use on my
 systems. They are public domain.
 
-analog_monthly          Script to update analog.cfg file for monthly logs.
 backup_mongo.sh         Script to export all mongodbs to bson for backup
 backup_mysql.sh         Backup mysql database server. Export each db to SQL
                         and compress it.
