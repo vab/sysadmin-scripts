@@ -6,7 +6,7 @@
 # Postgres database server and dump the databases one by one each
 # to its own sql file.
 
-# Author:       V. Alex Brennen <vab@mit.edu>
+# Author:       V. Alex Brennen <vab@cryptnet.net>
 # Copyright:    None
 # License:      Public domain
 # Created:      2006.10.20
