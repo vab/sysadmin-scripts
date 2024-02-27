@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# This script to used to create a bson dump of all dbs on a MonogoDB 
-# installation. 
+# Shell Script To Backup Mongo Databases
 
-# Author:	V. Alex Brennen <vab@mit.edu>
+# Author:		V. Alex Brennen <vab@cryptnet.net>
 # Copyright:	None
-# License:	Public Domain
-# Version:	1.0.1
-# Created:	2017.02.08
-# Last Updated:	2017.02.10
+# License:		Public Domain
+# Created:		2017.02.08
 # Dependencies:	Mongodump (MongoDB) and bzip2 (for optional compression)
+
+# Description:	This script to used to create a bson dump of all dbs on a
+#				MonogoDB installation.
 
 
 # Programs that will be used
@@ -89,4 +89,3 @@ function compress_files
 # Compress the bson export files
 cd $BACKDIR/mongodump-$YEAR-$MONTH-$DAY
 compress_files
-

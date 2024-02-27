@@ -1,15 +1,17 @@
 #!/bin/bash
 
 # Server Pseudo-random Password Generation Script
-# Author: V. Alex Brennen <vab@mit.edu>
-# License: This script is public domain
-# Date: 2012-02-26
 
-# Description: This script will use the passgen password candidate generator
-#	       to generate password candidates for a list of servers passed
-#	       to it. The list server should be in a new line separated text
-#	       file.
-# Dependency:  http://cryptnet.net/fsp/passgen/
+# Author:		V. Alex Brennen <vab@cryptnet.net>
+# Copyright:	None
+# License:		Public Domain
+# Date:			2012-02-26
+# Dependencies:	passgen (https://github.com/vab/passgen)
+
+# Description:	This script will use the passgen password candidate generator
+#				to generate password candidates for a list of servers passed
+#				to it. The list server should be in a new line separated text
+#				file.
 
 
 PASSGEN=/usr/bin/passgen
@@ -57,4 +59,3 @@ do
 done
 
 exit
-

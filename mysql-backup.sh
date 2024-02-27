@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# Shell script to backup MySQL databases
-# 
-# This script will create a list of all databases that exist on a 
-# MySQL database server and dump the databases one by one each to 
-# its own compressed, named, and dated, SQL file.
+# Shell Script To Backup MySQL/MariaDB Databases
 
-# Author:        V. Alex Brennen <vab@MIT.EDU>
-# Copyright:	 None
-# License:       Public Domain
-# Date:          2006.10.20
+# Author:		V. Alex Brennen <vab@cryptnet.net>
+# Copyright:	None
+# License:		Public Domain
+# Date:			2006.10.20
+# Dependencies:	Mysql or MariaDB; bzip2
+
+# Description:	This script will create a list of all databases that exist on
+# 				a MySQL database server and dump the databases one by one each
+#				to its own compressed, named, and dated, SQL file.
 
 
 # Locations of Programs we'll be using

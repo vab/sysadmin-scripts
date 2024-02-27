@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# Shell script to restore a MySQL (MariaDB) database from backup
-#
-# This script will take a MySQL (MariaDB) SQL dump file and reload it into a
-# MySQL (MariaDB) server.
+# Shell Script To Restore A MySQL (MariaDB) Database From Backup
 
 # Author:       V. Alex Brennen <vab@cryptnet.net>
 # Copyright:    None
 # License:      Public Domain
 # Date:         2024.02.25
+# Dependencies: MySQL or MariaDB; bzip2
+
+# Description:  This script will take a MySQL (MariaDB) SQL dump file and
+#               reload it into a MySQL (MariaDB) server.
+
 
 # Locations of Programs we'll be using
 MYSQL="/usr/bin/mysql"

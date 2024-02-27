@@ -1,9 +1,12 @@
 #!/bin/bash
 
 # Tomcat Post Upgrade File Permission Adjustment Script
-# Author: V. Alex Brennen <vab@mit.edu>
-# License: This script is public domain.
-# Date: 2013-12-17
+
+# Author:       V. Alex Brennen <vab@cryptnet.net>
+# Copyright:    None
+# License:      Public domain
+# Date:         2013-12-17
+# Dependencies:	Apache Tomcat
 
 # Description: 
 # This is a simple script to adjust Apache Tomcat file ownership
@@ -20,21 +23,21 @@
 # individual user accounts from the server configuration files
 # and tomcat process.
 
+
 UID="dspace"
 GID="dspace"
 
-/bin/chown $UID:$GID /var/log/tomcat6/catalina.out
-/bin/chown -R $UID:$GID /var/cache/tomcat6
+/bin/chown $UID:$GID /var/log/tomcat/catalina.out
+/bin/chown -R $UID:$GID /var/cache/tomcat
 
 # The DSpace software currently recommends installation in a webapps
 # directory in the home directory of the user running the system,
 # typically "dspace". The RHEL RPM post install script will remove a
-# symlink in the '/var/lib/tomcat6/webapps' location and replace it
+# symlink in the '/var/lib/tomcat/webapps' location and replace it
 # with an empty directory. These next command remove the new empty 
 # directory and recreate the symlink.
 
 WEBAPPS_LOC="/home/dspace/webapps"
 
-/bin/rm -r /var/lib/tomcat6/webapps
-/bin/ln -s $WEBAPPS_LOC /var/lib/tomcat6/webapps
-
+/bin/rm -r /var/lib/tomcat/webapps
+/bin/ln -s $WEBAPPS_LOC /var/lib/tomcat/webapps

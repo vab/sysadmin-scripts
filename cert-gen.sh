@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# This script will take a FQDN as an argument and generate an RSA key and
-# x509 certificate for it using OpenSSL.
+# TLS Certificate and Key Generation Script
 
-# Author:		V. Alex Brennen <vab@mit.edu>
+# Author:		V. Alex Brennen <vab@cryptnet.net>
 # Copyright:	None
 # License:		Public Domain
-# Version:		1.0.0
 # Created:		2017-02-11
-# Last Updated:	2017-02-11
 # Dependencies:	OpenSSL
+
+# Description:	This script will take a FQDN as an argument and generate an
+#				RSA key and x509 certificate for it using OpenSSL.
 
 # Check for the correct number of arguments
 if [ $# -lt 1 ]
@@ -23,6 +23,8 @@ fi
 OPENSSL=/usr/bin/openssl
 
 # Size of Key to Generate
+# Note:	If you plan to use this certificate and key with AWS, you may need to
+#		change this 2048.
 KEYSIZE=4096
 
 # Nubmer of Days Self-Signed Cert Should Be Valid
@@ -74,4 +76,3 @@ fi
 
 echo "Complete."
 exit 0
-

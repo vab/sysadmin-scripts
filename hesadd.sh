@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# User account creation from Hesiod data script
-# Author: V. Alex Brennen <vab@mit.edu>
-# License: This script is public domain
-# Date: 2014-03-24
+# User Account Creation From Hesiod Data Script
+
+# Author:       V. Alex Brennen <vab@cryptnet.net>
+# Copyright:	None
+# License:		Public Domain
+# Date:         2014-03-24
+# Dependencies: hesinfo; Hesiod database service available/populated
 
 # Description: This script will take a list of user accounts to create
 # as arguments. It will then iterate through the list calling hesinfo
@@ -13,6 +16,7 @@
 # the account of if the higher speed local disks should be used. The 
 # flag is set by editing the code on each server that the script is 
 # installed on.
+
 
 # The location of the hesinfo command.
 HESINFO=/usr/bin/hesinfo
@@ -77,4 +81,3 @@ then
 fi
 
 exit 0
-

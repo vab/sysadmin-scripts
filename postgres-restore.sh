@@ -1,13 +1,16 @@
 #!/bin/bash
 
-# Shell script to import a Postgres SQL export.
-
-# This script will reload a postgres database from an sql dump file.
+# Shell Script To Import A Postgres SQL Export.
 
 # Author:       V. Alex Brennen <vab@cryptnet.net>
 # Copyright:    None
 # License:      Public domain
 # Created:      2024.02.25
+# Dependencies:	PostgreSQL; bzip2
+
+# Description:  This script will reload a postgres database from an sql dump
+#               file.
+
 
 # Locations of the programs we'll be using.
 # Postgres

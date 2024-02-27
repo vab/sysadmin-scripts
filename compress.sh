@@ -1,9 +1,12 @@
 #!/bin/bash
 
 # Recursive File Compression Script
-# Author: V. Alex Brennen <vab@mit.edu>
-# License: This script is public domain
-# Date: 2014-03-17
+
+# Author:		V. Alex Brennen <vab@cryptnet.net>
+# Copyright:	None
+# License:		Public Domain
+# Date:			2014-03-17
+# Dependencies:	bzip2
 
 # Description: This script will take a directory as an argument.
 # It will then transverse the directory, and all sub directories,
@@ -60,4 +63,3 @@ function compress_files
 # to the recursive compress_files function.
 cd $1
 compress_files
-

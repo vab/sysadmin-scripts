@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# This script is used to download a database export backup from a remote 
-# machine with sftp. An SSH keypair is used for authentication. The script
-# will copy a file with a date based naming convention. It will report success
-# or failure, determined by a basic file existence check, via e-mail. This 
-# script was designed to be called daily or weekly from cron.
-
-# Author:	V. Alex Brennen <vab@mit.edu>
+# Author:		V. Alex Brennen <vab@cryptnet.net>
 # Copyright:	None
-# License:	Public Domain
-# Version:	1.0.1
-# Created:	2016.12.03
-# Last Updated:	2017.02.09
-# Dependencies:	Expect and SFTP
+# License:		Public domain
+# Created:		2016.12.03
+# Dependencies:	Expect; SFTP
+
+# Description:	This script is used to download a database export backup from
+#				a remote machine with sftp. An SSH keypair is used for
+#				authentication. The script will copy a file with a date based
+#				naming convention. It will report success or failure,
+#				determined by a basic file existence check, via e-mail. This
+#				script was designed to be called daily or weekly from cron.
 
 
 # Programs that will be used
@@ -56,4 +55,3 @@ if [ ! -f $BACKUP ]; then
 fi
 
 echo "Successfully transferred backup $BACKUP_NAME." |$MAIL -s "Backup Transfer Complete" $NOTIFY
-

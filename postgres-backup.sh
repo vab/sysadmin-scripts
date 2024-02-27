@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# Shell script to backup Postges databases
-#
-# This script will create a list of all databases that exist on a
-# Postgres database server and dump the databases one by one each
-# to its own sql file.
+# Shell Script To Backup Postges Databases
 
 # Author:       V. Alex Brennen <vab@cryptnet.net>
 # Copyright:    None
 # License:      Public domain
 # Created:      2006.10.20
+# Dependencies:	PostgreSQL; bzip2
+
+# Description:  This script will create a list of all databases that exist on
+# a Postgres database server and dump the databases one by one each to its own
+# SQL file.
 
 
 # Locations of the programs we'll be using.
