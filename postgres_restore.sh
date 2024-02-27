@@ -14,8 +14,6 @@
 PSQL="/usr/bin/psql"
 # General
 BZIP2="/usr/bin/bzip2"
-CHOWN="/usr/bin/chown"
-CHMOD="/usr/bin/chmod"
 NICE="/bin/nice"
 
 # The argument to specify a compression level to Bzip2 if required.
@@ -26,9 +24,6 @@ BE_NICE=1
 
 # Nice level.
 NLVL=19
-
-# Backup permissions.
-BACKUP_PERMS=640
 
 # Set database sever address.
 DBSRVR="127.0.0.1"
@@ -65,17 +60,16 @@ USER="postgres"
 #export PGPASSWORD=""
 
 # Directory that the exports are stored in.
-EXPORTDIR="/mnt/exports"
+EXPORTDIR="/var/backups/postgres"
 
-# The name of the export file to restore before the database name has been
-# changed.
+# The name of the export file to restore.
 #
 # Note: This name should not include the compression suffix.
 # Example: EXPORT_FILE="db.prod-dbsrvr.20240225.sql"
 EXPORT_FILE=""
 
 # The name of the compressed export file.
-COMPRESSED_EXPORT_FILE="$UNPROCESSED_EXPORT_FILE.bz2"
+COMPRESSED_EXPORT_FILE="$EXPORT_FILE.bz2"
 
 # Go to the export directory
 cd $EXPORTDIR
@@ -92,7 +86,6 @@ if [ $? -ne 0 ]; then
 fi
 
 # Load the database dump.
-# psql
 $PSQL -h $DBSRVR -U $USER -f $EXPORT_FILE
 if [ $? -ne 0 ]; then
     echo "Failed to load $EXPORT_FILE." >&2
@@ -107,16 +100,9 @@ if [ $BE_NICE -eq 1 ]; then
         exit 1
     fi
     else
-    $BZIP2 $CLVL $FILE
+    $BZIP2 $CLVL $EXPORT_FILE
     if [ $? -ne 0 ]; then
         echo "Failed to compress: $EXPORT_FILE" >&2
         exit 1
     fi
-fi
-
-# Set the file permissions on the backup file.
-$CHMOD $BACKUP_PERMS $BACKUP_FILE
-if [ $? -ne 0 ]; then
-    echo "Failed to change permissions on the backup file: $BACKFILE." >&2
-    exit 1
 fi

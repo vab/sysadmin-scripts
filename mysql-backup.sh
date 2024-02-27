@@ -59,7 +59,6 @@ if [ ! -w "$BACKDIR" ]; then
         /bin/chmod 755 $BACKDIR
 fi
 
-
 # Make sure the back-up directory for the current month exists and is
 # writable by the back-up script.
 BACKDIR="$BACKDIR/$MONTH"
@@ -98,4 +97,3 @@ do
 		$BZIP2 $CLVL $FILE
 	fi
 done
-
