@@ -24,4 +24,5 @@ Public Domain
 |sftp-download.sh|Script to download db export from remote machine with sftp using ssh keypair authentication.|
 |sshcachetunnel.sh|Script to set up an SSH tunnel to a squid proxy.|
 |tomcat-post-upgrade.sh|Script to handle permission changes if you run tomcat as a role account other than tomcat.|
+|ubuntu-security-updates.sh|Install security updates on ubuntu based systems.|
 |yum-security-updates.sh|Install security updates with yum and log package updates to a file.|
