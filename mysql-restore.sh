@@ -49,21 +49,21 @@ BACKUP_FILE=""
 COMPRESSED_BACKUP_FILE="$BACKUP_FILE.bz2"
 
 # Go to the backup directory
-cd $BACKUPDIR
+eval "cd $BACKUPDIR" || exit 1
 if [ $? -ne 0 ]; then
     echo "Failed change to backup directory: $BACKUPDIR." >&2
     exit 1
 fi
 
 # Decompress the backup file.
-$BZIP2 -d $COMPRESSED_BACKUP_FILE
+eval "$BZIP2 -d $COMPRESSED_BACKUP_FILE"
 if [ $? -ne 0 ]; then
     echo "Failed to decompress $COMPRESSED_BACKUP_FILE." >&2
     exit 1
 fi
 
 # Load the backup file into the database.
-$MYSQL -h $DB_SRVR --user=$USER --password=$PASS $DB_NAME < $BACKUP_FILE
+eval "$MYSQL -h $DB_SRVR --user=$USER --password=$PASS $DB_NAME < $BACKUP_FILE"
 if [ $? -ne 0 ]; then
     echo "Failed to load $BACKUP_FILE." >&2
     exit 1
@@ -71,13 +71,13 @@ fi
 
 # Recompress the backup file.
 if [ $BE_NICE -eq 1 ]; then
-    $NICE -$NLVL $BZIP2 $CLVL $BACKUP_FILE
+    eval "$NICE -$NLVL $BZIP2 $CLVL $BACKUP_FILE"
     if [ $? -ne 0 ]; then
         echo "Failed to compress: $BACKUP_FILE" >&2
         exit 1
     fi
     else
-    $BZIP2 $CLVL $BACKUP_FILE
+    eval "$BZIP2 $CLVL $BACKUP_FILE"
     if [ $? -ne 0 ]; then
         echo "Failed to compress: $BACKUP_FILE" >&2
         exit 1

@@ -52,22 +52,22 @@ MONTH="$(/bin/date +"%m")"
 # To compress log files from one month ago we subtract one from 
 # the current month. If the month is January, we set it to 
 # December and roll the year back.
-if [ $MONTH -eq 1 ]; then
-	MONTH = 12;
-	YEAR =$(( $YEAR-- ))
+if [ "$MONTH" -eq 1 ]; then
+	MONTH=12;
+	YEAR=$YEAR--
 else
-	MONTH=$(( $MONTH-1 ))
+	MONTH=$MONTH-1
 fi
 
 # This code adds a leading zero to the month to comply with ISO
 # date format standard.
-if [ $MONTH -lt 10 ]; then
+if [ "$MONTH" -lt 10 ]; then
 	MONTH="0$MONTH";
 fi
 
 # Compress the old log files
-if [ $BE_NICE -eq 1 ]; then
-	$NICE -$NLVL $BZIP2 $CLVL $1/*$YEAR-$MONTH*
+if [ "$BE_NICE" -eq 1 ]; then
+	eval "$NICE -$NLVL $BZIP2 $CLVL $1/*$YEAR-$MONTH*"
 else
-	$BZIP2 $CLVL $1/*$YEAR-$MONTH*
+	eval "$BZIP2 $CLVL $1/*$YEAR-$MONTH*"
 fi

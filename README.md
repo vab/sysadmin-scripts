@@ -5,14 +5,16 @@
 This is a collection of miscellaneous sysadmin scripts.
 
 ## License
+
 Public Domain
 
 ## Scripts
+
 | Name | Description |
 |------|-------------|
-|cert-gen.sh|x509 (https) certificate creation w/ OpenSSL
+|cert-gen.sh|x509 (https) certificate creation w/ OpenSSL.|
 |compress.sh|Recursive file compression script.|
-|genpasswds.sh|Script to generate passwords for a list of systems. This script is meant to be used with [vab/passgen](https://github.com/vab/passgen)|
+|genpasswds.sh|Script to generate passwords for a list of systems. This script is meant to be used with [vab/passgen](https://github.com/vab/passgen).|
 |hesadd.sh|Script to add Linux users with modified hesiod data.|
 |log-clean.sh|Script to remove old logs.|
 |log-compress.sh|Monthly log compression script.|

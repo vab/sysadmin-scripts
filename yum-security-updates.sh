@@ -19,4 +19,4 @@ YUM=/usr/bin/yum
 LOG=/var/log/security-updates.log
 
 # Perform the updates
-$YUM -y --security update 2>&1 > $LOG
+$YUM -y --security update > $LOG 2>&1

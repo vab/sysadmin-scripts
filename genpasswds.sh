@@ -35,7 +35,7 @@ PASSGEN_ARGS="-C -n 1 -u"
 # Function to generate and print a password candidate
 function genpass
 {
-	CANDIDATE=`$PASSGEN $PASSGEN_ARGS`
+	CANDIDATE=$($PASSGEN "$PASSGEN_ARGS")
 	echo "	root:	$CANDIDATE"
 }
 
@@ -52,9 +52,9 @@ if [ ! -r "$1" ]; then
 fi
 
 # Step through the list of servers, generating a new password for each one
-for SERVER in $(cat $1);
+for SERVER in $(cat "$1");
 do
-	echo $SERVER
+	echo "$SERVER"
 	genpass
 done
 

@@ -42,20 +42,20 @@ echo "Generating encryption keys, CSRs, and certificates..."
 for domainname in "$@"
 do
 	# File Names
-	KEYFILE=$domainname.key
-	CSRFILE=$domainname.csr
-	CERTFILE=$domainname.crt
+	KEYFILE="$domainname.key"
+	CSRFILE="$domainname.csr"
+	CERTFILE="$domainname.crt"
 
 	# Generate the Key
-	$($OPENSSL genrsa -out $KEYFILE  $KEYSIZE)
+	eval "$("$OPENSSL genrsa -out $KEYFILE $KEYSIZE")"
 
 	# Generate the CSR
-	$($OPENSSL req -new -sha256 -nodes -key $KEYFILE -out $CSRFILE)
+	eval "$("$OPENSSL req -new -sha256 -nodes -key $KEYFILE -out $CSRFILE")"
 
 	if [ $SELFSIGN -eq 1 ]
 	then
 		# Self-sign the CSR
-		$($OPENSSL x509 -in $CSRFILE -out $CERTFILE -req -signkey $KEYFILE -days $VALID_DAYS)
+		eval "$("$OPENSSL x509 -in $CSRFILE -out $CERTFILE -req -signkey $KEYFILE -days $VALID_DAYS")"
 	fi
 
 	if [ $? -eq 0 ]

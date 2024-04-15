@@ -35,22 +35,22 @@ MONTH="$(/bin/date +"%m")"
 # To remove log files from two months ago we subtract two from 
 # the current month. If the month is January or February, we 
 # set it and roll the year back.
-if [ $MONTH -lt 3 ]; then
-	if [ $MONTH -eq 2 ]; then
-		MONTH = 12;
+if [ "$MONTH" -lt 3 ]; then
+	if [ "$MONTH" -eq 2 ]; then
+		MONTH=12;
 	else
-		MONTH = 11;
+		MONTH=11;
 	fi
-	YEAR =$(( $YEAR-- ))
+	YEAR=$YEAR--
 else
-	MONTH=$(( $MONTH-2 ))
+	MONTH=$MONTH-2
 fi
 
 # This code add a leading zero to the month to comply with ISO
 # date format standard.
-if [ $MONTH -lt 10 ]; then
+if [ "$MONTH" -lt 10 ]; then
 	MONTH="0$MONTH";
 fi
 
 # Remove the old log files
-/bin/rm $1/*$YEAR-$MONTH*
+eval "/bin/rm $1/*$YEAR-$MONTH*"

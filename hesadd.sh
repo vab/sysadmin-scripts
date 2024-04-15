@@ -54,17 +54,17 @@ echo "Adding users..."
 # the script
 for user in "$@"
 do
-    DATA=`$HESINFO $user passwd`
+    DATA=$($HESINFO "$user" passwd)
     uid=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $3}')
     gid=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $4}')
-    gcos=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $5}')
+    gecos=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $5}')
     home=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $6}')
     shell=$(echo "$DATA"|awk 'BEGIN{FS=":"}{print $7}')
     if [ $AFS_HOME -eq 0 ]
     then
-        $($USERADD -d /home/$user -m -c \"$gecos\" -s $shell -u $uid -g $gid $user)
+        eval "$("$USERADD -d /home/$user -m -c \"$gecos\" -s $shell -u $uid -g $gid $user")"
     else
-        $($USERADD -d $home -m -c \"$gecos\" -s $shell -u $uid -g $gid $user)
+        eval "$("$USERADD -d $home -m -c \"$gecos\" -s $shell -u $uid -g $gid $user")"
     fi
     if [ $? -eq 0 ]
     then

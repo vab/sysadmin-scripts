@@ -91,7 +91,7 @@ DAY="$($DATE +"%d")"
 BACKDIR="$BACKDIR/$YEAR"
 
 if [ ! -d "$BACKDIR" ]; then
-  $MKDIR $BACKDIR
+  eval "$MKDIR $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to create to backup directory: $BACKDIR." >&2
     exit 1
@@ -99,12 +99,12 @@ if [ ! -d "$BACKDIR" ]; then
 fi
 
 if [ ! -w "$BACKDIR" ]; then
-  $CHOWN $BACKDIR_USER:$BACKDIR_GROUP $BACKDIR
+  eval "$CHOWN $BACKDIR_USER:$BACKDIR_GROUP $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to change ownership on backup directory: $BACKDIR." >&2
     exit 1
   fi
-  $CHMOD $BACKDIR_PERMS $BACKDIR
+  eval "$CHMOD $BACKDIR_PERMS $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to change permissions on backup directory: $BACKDIR." >&2
     exit 1
@@ -116,7 +116,7 @@ fi
 BACKDIR="$BACKDIR/$MONTH"
 
 if [ ! -d "$BACKDIR" ]; then
-  $MKDIR $BACKDIR
+  eval "$MKDIR $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to create to backup directory: $BACKDIR." >&2
     exit 1
@@ -124,12 +124,12 @@ if [ ! -d "$BACKDIR" ]; then
 fi
 
 if [ ! -w "$BACKDIR" ]; then
-  $CHOWN $BACKDIR_USER:$BACKDIR_GROUP $BACKDIR
+  eval "$CHOWN $BACKDIR_USER:$BACKDIR_GROUP $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to change ownership on backup directory: $BACKDIR." >&2
     exit 1
   fi
-  $CHMOD $BACKDIR_PERMS $BACKDIR
+  eval "$CHMOD $BACKDIR_PERMS $BACKDIR"
   if [ $? -ne 0 ]; then
     echo "Failed to change permissions on backup directory: $BACKDIR." >&2
     exit 1
@@ -140,7 +140,7 @@ fi
 DATE="$YEAR$MONTH$DAY"
 
 # Go to the backup directory.
-cd $BACKDIR
+cd "$BACKDIR" || exit 1
 if [ $? -ne 0 ]; then
   echo "Failed change to backup directory: $BACKDIR." >&2
   exit 1
@@ -161,7 +161,7 @@ do
   BACKUP_FILE="$DB.$DBSRVR.$DATE.sql.bz2"
 
   # Dump the data.
-  $PG_DUMP -h $DBSRVR -U $USER --no-password --create --oids -U $USER -f $FILE $DB
+  eval "$PG_DUMP -h $DBSRVR -U $USER --no-password --create --oids -U $USER -f $FILE $DB"
   if [ $? -ne 0 ]; then
     echo "Failed to dump $DB." >&2
     if [ $CONTINUE_DUMP_ERROR -eq 0 ]; then
@@ -171,7 +171,7 @@ do
 
   # Compress the dump file.
   if [ $BE_NICE -eq 1 ]; then
-    $NICE -$NLVL $BZIP2 $CLVL $FILE
+    eval "$NICE -$NLVL $BZIP2 $CLVL $FILE"
     if [ $? -ne 0 ]; then
       echo "Failed to compress $DB." >&2
       if [ $CONTINUE_DUMP_ERROR -eq 0 ]; then
@@ -179,7 +179,7 @@ do
       fi
     fi
   else
-    $BZIP2 $CLVL $FILE
+    eval "$BZIP2 $CLVL $FILE"
     if [ $? -ne 0 ]; then
       echo "Failed to compress $DB." >&2
       if [ $CONTINUE_DUMP_ERROR -eq 0 ]; then
@@ -189,7 +189,7 @@ do
   fi
 
   # Set the file permissions on the backup file.
-  $CHMOD $BACKUP_PERMS $BACKUP_FILE
+  eval "$CHMOD $BACKUP_PERMS $BACKUP_FILE"
   if [ $? -ne 0 ]; then
     echo "Failed to change permissions on the backup file: $BACKFILE." >&2
     if [ $CONTINUE_DUMP_ERROR -eq 0 ]; then

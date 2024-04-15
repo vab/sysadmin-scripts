@@ -75,21 +75,35 @@ EXPORT_FILE=""
 COMPRESSED_EXPORT_FILE="$EXPORT_FILE.bz2"
 
 # Go to the export directory
-cd $EXPORTDIR
+cd $EXPORTDIR || exit 1
 if [ $? -ne 0 ]; then
     echo "Failed change to export directory: $EXPORTDIR." >&2
     exit 1
 fi
 
 # Decompress the export file.
-$BZIP2 -d $COMPRESSED_EXPORT_FILE
+eval "$BZIP2 -d $COMPRESSED_EXPORT_FILE"
 if [ $? -ne 0 ]; then
     echo "Failed to decompress $COMPRESSED_EXPORT_FILE." >&2
     exit 1
 fi
 
+# Drop the database.
+eval "$($PSQL -h $DBSRVR -U $USER --no-password -c "drop database $DB;" postgres)"
+if [ $? -ne 0 ]; then
+    echo "Failed to drop existing database: $DB" >&2
+    exit 1
+fi
+
+# Recreate the database.
+eval "$($PSQL -h $DBSRVR -U $USER --no-password -c "create database $DB;" postgres)"
+if [ $? -ne 0 ]; then
+    echo "Failed to recreate database: $DB" >&2
+    exit 1
+fi
+
 # Load the database dump.
-$PSQL -h $DBSRVR -U $USER -f $EXPORT_FILE
+eval "$PSQL -h $DBSRVR -U $USER -f $EXPORT_FILE"
 if [ $? -ne 0 ]; then
     echo "Failed to load $EXPORT_FILE." >&2
     exit 1
@@ -97,13 +111,13 @@ fi
 
 # Recompress the dump file.
 if [ $BE_NICE -eq 1 ]; then
-    $NICE -$NLVL $BZIP2 $CLVL $EXPORT_FILE
+    eval "$NICE -$NLVL $BZIP2 $CLVL $EXPORT_FILE"
     if [ $? -ne 0 ]; then
         echo "Failed to compress: $EXPORT_FILE" >&2
         exit 1
     fi
     else
-    $BZIP2 $CLVL $EXPORT_FILE
+    eval "$BZIP2 $CLVL $EXPORT_FILE"
     if [ $? -ne 0 ]; then
         echo "Failed to compress: $EXPORT_FILE" >&2
         exit 1

@@ -39,7 +39,7 @@ BACKUP_NAME="dbexport_$YEAR-$MONTH-$DAY.sql.gz"
 BACKUP_DIR="/mnt/backups/remote"
 BACKUP="$BACKUP_DIR/$BACKUP_NAME"
 
-cd $BACKUP_DIR
+cd $BACKUP_DIR || exit 1
 
 $EXPECT<<EOD
 spawn $SFTP -oIdentityFile=$ID_FILE -oPort=$PORT $USERNAME@$HOST:$DIR
@@ -49,9 +49,9 @@ expect "sftp>"
 send "bye\r"
 EOD
 
-if [ ! -f $BACKUP ]; then
+if [ ! -f "$BACKUP" ]; then
 	echo "Failed to transfer backup $BACKUP_NAME." |$MAIL -s "Backup Transfer Failed" $FAILNOTIFY
-	exit -1
+	exit 1
 fi
 
 echo "Successfully transferred backup $BACKUP_NAME." |$MAIL -s "Backup Transfer Complete" $NOTIFY

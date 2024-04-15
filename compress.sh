@@ -42,16 +42,16 @@ fi
 # directory transversal.
 function compress_files
 {
-	for i in $( ls );
+	for i in ls *
 	do
-		if [ -f $i ]; then
+		if [ -f "$i" ]; then
 		    if [ $BE_NICE -eq 1 ]; then
-		    	$NICE -$NLVL $BZIP2 $CLVL $i
+                $NICE -$NLVL $BZIP2 $CLVL "$i"
 		    else
-			    $BZIP2 $CLVL $i
+                $BZIP2 $CLVL "$i"
 			fi
-		elif [ -d $i ]; then
-			cd $i
+		elif [ -d "$i" ]; then
+			cd "$i" || continue
 			compress_files
 			cd ..
 		fi
@@ -61,5 +61,5 @@ function compress_files
 # To start the script, we change the current working directory
 # to the directory to compress then kick off the initial call 
 # to the recursive compress_files function.
-cd $1
+cd "$1" || exit 1
 compress_files

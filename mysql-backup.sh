@@ -52,12 +52,12 @@ DAY="$(date +"%d")"
 BACKDIR="$BACKDIR/$YEAR"
 
 if [ ! -d "$BACKDIR" ]; then
-        /bin/mkdir $BACKDIR
+        eval "/bin/mkdir $BACKDIR"
 fi
 
 if [ ! -w "$BACKDIR" ]; then
-        /bin/chown mysql:mysql $BACKDIR
-        /bin/chmod 755 $BACKDIR
+        eval "/bin/chown mysql:mysql $BACKDIR"
+        eval "/bin/chmod 755 $BACKDIR"
 fi
 
 # Make sure the back-up directory for the current month exists and is
@@ -65,16 +65,16 @@ fi
 BACKDIR="$BACKDIR/$MONTH"
 
 if [ ! -d "$BACKDIR" ]; then
-        /bin/mkdir $BACKDIR
+        eval "/bin/mkdir $BACKDIR"
 fi
 
 if [ ! -w "$BACKDIR" ]; then
-        /bin/chown mysql:mysql $BACKDIR
-        /bin/chmod 755 $BACKDIR
+        eval "/bin/chown mysql:mysql $BACKDIR"
+        eval "/bin/chmod 755 $BACKDIR"
 fi
 
 # Go to the back up directory
-cd $BACKDIR
+cd "$BACKDIR" || return 1
 
 # Construct the date information to be used in the backup filename.
 DATE="$YEAR$MONTH$DAY"
@@ -89,12 +89,12 @@ do
 	FILE="$db.$DB_SRVR_NAME.$DATE.sql"
 
 	# Dump the data
-	$MYSQLDUMP --opt -h $DB_SRVR --user=$USER --password=$PASS $db > $FILE
+	eval "$MYSQLDUMP --opt -h $DB_SRVR --user=$USER --password=$PASS $db > $FILE"
 	
 	# Compress the dump file
 	if [ $BE_NICE -eq 1 ]; then
-		$NICE -$NLVL $BZIP2 $CLVL $FILE
+		eval "$NICE -$NLVL $BZIP2 $CLVL $FILE"
 	else
-		$BZIP2 $CLVL $FILE
+		eval "$BZIP2 $CLVL $FILE"
 	fi
 done
